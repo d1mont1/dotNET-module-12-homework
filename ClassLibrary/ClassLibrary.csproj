@@ -43,6 +43,8 @@
   <ItemGroup>
     <Compile Include="Bus.cs" />
     <Compile Include="Car.cs" />
+    <Compile Include="Counter.cs" />
+    <Compile Include="Timerr.cs" />
     <Compile Include="Truck.cs" />
     <Compile Include="PassengerCar.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -2,18 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using ClassLibrary;
 
 namespace dotNET_module_12_homework
 {
     public delegate double MathOperation(double a, double b);
-
+    
     class Program
     {
-        static void Main(string[] args)
+        static void ex1to5()
         {
-            Console.WriteLine("ЗАДАНИЕ №1. ЗАДАЧА №1-5\n");
+            Console.WriteLine("\nЗАДАНИЕ №1. ЗАДАЧА №1-5\n");
 
             SportsCar sportsCar = new SportsCar("Спортивный автомобиль", 10);
             PassengerCar passengerCar = new PassengerCar("Легковой автомобиль", 8);
@@ -33,8 +33,11 @@ namespace dotNET_module_12_homework
             game.RaceInfo += raceDelegate;
 
             game.StartRace(cars);
+        }
 
-            Console.WriteLine("\nДОПОЛНИТЕЛЬНАЯ РАБОТА. ЗАДАЧА №1\n");
+        static void additional_ex1()
+        {
+            Console.WriteLine("\nДОПОЛНИТЕЛЬНАЯ РАБОТА. ЗАДАЧА №1 / ПРАКТИЧЕСКОЕ ЗАДАНИЕ №1\n");
 
             Console.WriteLine("Введите два числа:");
             double number1 = Convert.ToDouble(Console.ReadLine());
@@ -67,6 +70,61 @@ namespace dotNET_module_12_homework
 
             double result = operation(number1, number2);
             Console.WriteLine($"Результат операции: {result}");
+        }
+
+        static void prac_ex2()
+        {
+            Console.WriteLine("\nПРАКТИЧЕСКОЕ ЗАДАНИЕ №2\n");
+
+            Counter counter = new Counter(5); // Пороговое значение
+
+            counter.ThresholdReached += ThresholdReachedHandler; // Подписываемся на событие
+
+            for (int i = 0; i < 7; i++) // Увеличиваем счётчик
+            {
+                counter.Increment();
+            }
+        }
+
+        static void prac_ex3()
+        {
+            Console.WriteLine("\nПРАКТИЧЕСКОЕ ЗАДАНИЕ №3\n");
+
+            Timerr timer = new Timerr();
+            timer.Tick += TimerTickHandler;
+
+            Console.WriteLine("Таймер запущен. Нажмите любую клавишу для остановки.");
+
+            Thread timerThread = new Thread(timer.Start);
+            timerThread.Start();
+
+            Console.ReadKey(); // Ожидание нажатия клавиши для остановки
+
+            timer.Stop();
+            timerThread.Join(); // Дождаться завершения потока таймера
+
+            Console.WriteLine("Таймер остановлен.");
+        }
+
+        static void Main(string[] args)
+        {
+            ex1to5();
+
+            additional_ex1();
+
+            prac_ex2();
+
+            prac_ex3();
+        }
+
+        static void TimerTickHandler(object sender, EventArgs e)
+        {
+            Console.WriteLine($"Текущее время: {DateTime.Now.ToLongTimeString()}");
+        }
+
+        static void ThresholdReachedHandler(object sender, EventArgs e)
+        {
+            Console.WriteLine("Пороговое значение счётчика достигнуто!");
         }
 
         static double Addition(double a, double b)
